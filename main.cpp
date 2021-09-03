@@ -2,7 +2,13 @@
 
 int main(int argc, char* args[])
 {
-  printf("Hello world\n");
+  int a = 0;
+  int b = 0;
+
+  scanf("%d + %d", &a, &b);
+
+  printf( "%d\n", a + b);
+
 
   return 0;
 }
