@@ -19,7 +19,7 @@ int main(int argc, char* args[])
     return 1;
   }
 
-  SDL_SetRenderDrawColor(gpRenderer, 0, 0, 0, 255);
+  SDL_SetRenderDrawColor(gpRenderer, 0, 0, 255, 255);
   SDL_RenderClear(gpRenderer);
   SDL_RenderPresent(gpRenderer);
 
