@@ -1,25 +1,52 @@
 #include"Game.h"
+#include<iostream>
 
 SDL_Window* m_pWindow = 0;
 SDL_Renderer* m_pRenderer = 0;
 bool m_bRunning = false;
 
-bool Game::init(const char *title, int xpos, int ypos, int width, int height, int flags)
+bool Game::init(const char *title, int xpos, int ypos, int width, int height, int flags) //초기값
 {
   if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
   {
     m_pWindow = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
-    if (m_pWindow !=0){
+    if (m_pWindow !=0)
+    {
       m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, 0);
-      if (m_pRenderer !=0){
+      if (m_pRenderer !=0)
+      {
+        
         SDL_SetRenderDrawColor(m_pRenderer, 255, 255, 255, 255);
-      } else {
+
+        SDL_Surface* pTempSurface = SDL_LoadBMP("Assets/rider.bmp");
+        m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
+        SDL_FreeSurface(pTempSurface);
+        
+        SDL_QueryTexture(m_pTexture, NULL, NULL, &m_sourceRectangle.w, &m_sourceRectangle.h);
+
+        m_destinationRectangle.w = width;
+        m_destinationRectangle.h = height; // = 는 대입
+
+        m_destinationRectangle.x = 0; 
+        m_destinationRectangle.y = 0;
+        m_sourceRectangle.x = 0;
+        m_sourceRectangle.y = 0;
+       
+        std::cout<< "check"<<std::endl;
+
+      } 
+      else // SDL_CreateRenderer  가 정상적으로 작동 x
+      {
         return false;
       }
-    } else {
+    } 
+    else // SDL_CreateWindow 가 정상적으로 작동 x
+    {
       return false;
     }
-  } else {
+  } 
+  else // SDL_ Init 이 정상적으로 작동 x = 정의 확인
+  {
     return false;
   }
 
@@ -30,24 +57,7 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, in
 
 void Game::update()
 {
-    
- SDL_Surface* pTempSurface = SDL_LoadBMP("Assets/rider.bmp");
 
- m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
-
- SDL_FreeSurface(pTempSurface);
-
- SDL_QueryTexture(m_pTexture, NULL, NULL, &m_sourceRectangle.w, &m_sourceRectangle.h);
-
- m_sourceRectangle.x = 50;
- m_sourceRectangle.y = 50;
- m_sourceRectangle.w = 50;
- m_sourceRectangle.h = 50;
- 
- m_destinationRectangle.w = m_sourceRectangle.w;
- m_destinationRectangle.h = m_sourceRectangle.h;
- m_destinationRectangle.x = 123;
- m_destinationRectangle.y = 87;
 
 }
 
