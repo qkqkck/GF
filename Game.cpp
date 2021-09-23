@@ -10,17 +10,42 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, in
   if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
   {
     m_pWindow = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
-    if (m_pWindow !=0){
+    if (m_pWindow !=0)
+    {
       m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, 0);
-      if (m_pRenderer !=0){
+      if (m_pRenderer !=0)
+      {
+        
         SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 255);
-      } else {
+
+        SDL_Surface* pTempSurface = IMG_Load("Assets/animate-alpha.png");
+
+        m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
+
+       SDL_FreeSurface(pTempSurface);
+
+       m_sourceRectangle.w = 128;
+       m_sourceRectangle.h = 82;
+
+       m_destinationRectangle.w = m_sourceRectangle.w;
+       m_destinationRectangle.h = m_sourceRectangle.h;
+
+       m_destinationRectangle.x = m_sourceRectangle.x = 0;
+       m_destinationRectangle.y = m_sourceRectangle.y = 0;
+
+      } 
+      else 
+      {
         return false;
       }
-    } else {
+    } 
+    else 
+    {
       return false;
     }
-  } else {
+  } 
+  else 
+  {
     return false;
   }
 
@@ -31,23 +56,7 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, in
 
 void Game::update()
 {
-
-    SDL_Surface* pTempSurface = IMG_Load("Assets/animate-alpha.png");
-
-    m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
-
-    SDL_FreeSurface(pTempSurface);
-
-    m_sourceRectangle.w = 128;
-    m_sourceRectangle.h = 82;
-
-    m_destinationRectangle.w = m_sourceRectangle.w;
-    m_destinationRectangle.h = m_sourceRectangle.h;
-
-    m_destinationRectangle.x = m_sourceRectangle.x = 0;
-    m_destinationRectangle.y = m_sourceRectangle.y = 0;
-
-    m_sourceRectangle.x = 128 * ((SDL_GetTicks() / 100) % 6);
+   m_sourceRectangle.x = 128 * ((SDL_GetTicks() / 100) % 6);
 }
 
 void Game::render()
