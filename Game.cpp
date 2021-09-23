@@ -39,15 +39,15 @@ void Game::update()
 
  SDL_QueryTexture(m_pTexture, NULL, NULL, &m_sourceRectangle.w, &m_sourceRectangle.h);
 
- m_sourceRectangle.x = 0;
- m_sourceRectangle.y = 0;
+ m_sourceRectangle.x = 50;
+ m_sourceRectangle.y = 50;
  m_sourceRectangle.w = 50;
  m_sourceRectangle.h = 50;
  
  m_destinationRectangle.w = m_sourceRectangle.w;
  m_destinationRectangle.h = m_sourceRectangle.h;
- m_destinationRectangle.x = 0;
- m_destinationRectangle.y = 0;
+ m_destinationRectangle.x = 123;
+ m_destinationRectangle.y = 87;
 
 }
 
