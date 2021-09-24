@@ -26,12 +26,14 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, in
 
        m_sourceRectangle.w = 128;
        m_sourceRectangle.h = 82;
+       m_destinationRectangle.w = width;
+       m_destinationRectangle.h = height;
 
-       m_destinationRectangle.w = m_sourceRectangle.w;
-       m_destinationRectangle.h = m_sourceRectangle.h;
-
-       m_destinationRectangle.x = m_sourceRectangle.x = 0;
-       m_destinationRectangle.y = m_sourceRectangle.y = 0;
+      
+       m_sourceRectangle.x = 0;
+       m_sourceRectangle.y = 0;
+       m_destinationRectangle.x = 0;
+       m_destinationRectangle.y = 0;
 
       } 
       else 
