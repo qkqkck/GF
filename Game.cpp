@@ -16,18 +16,17 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, in
       if (m_pRenderer !=0)
       {
         
-        SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 255);
+        SDL_SetRenderDrawColor(m_pRenderer, 0, 225, 255, 255);
 
-        SDL_Surface* pTempSurface = IMG_Load("Assets/animate-alpha.png");
-
+        SDL_Surface* pTempSurface = IMG_Load("Assets/abc1.png");
         m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
 
        SDL_FreeSurface(pTempSurface);
 
-       m_sourceRectangle.w = 128;
-       m_sourceRectangle.h = 82;
-       m_destinationRectangle.w = width;
-       m_destinationRectangle.h = height;
+       m_sourceRectangle.w = 227;
+       m_sourceRectangle.h = 300;
+       m_destinationRectangle.w = 230;
+       m_destinationRectangle.h = 300;
 
       
        m_sourceRectangle.x = 0;
@@ -58,7 +57,7 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, in
 
 void Game::update()
 {
-   m_sourceRectangle.x = 128 * ((SDL_GetTicks() / 100) % 6);
+   m_sourceRectangle.x = 247 * ((SDL_GetTicks() / 120) % 4);
 }
 
 void Game::render()
