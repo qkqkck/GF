@@ -1,4 +1,5 @@
 #include"Game.h"
+#include"SDL_image.h"
 #include<iostream>
 
 SDL_Window* m_pWindow = 0;
@@ -18,7 +19,7 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, in
         
         SDL_SetRenderDrawColor(m_pRenderer, 255, 255, 255, 255);
 
-        SDL_Surface* pTempSurface = SDL_LoadBMP("Assets/rider.bmp");
+        SDL_Surface* pTempSurface = IMG_Load("Assets/abc12.png");
         m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
         SDL_FreeSurface(pTempSurface);
         
