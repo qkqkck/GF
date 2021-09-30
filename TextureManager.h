@@ -8,9 +8,6 @@
 class TextureManager
 {
 private:
- TextureManager() {}
-
-private:
  static TextureManager * s_pInstance;
 
 public:
@@ -30,7 +27,7 @@ public:
 
 private:
 	std::map<std::string, SDL_Texture*> m_textureMap;
-  
+  TextureManager() {}
 
 };
 
