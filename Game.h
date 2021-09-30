@@ -17,7 +17,6 @@ public:
 private:
 	SDL_Window* m_pwindow;
 	SDL_Renderer* m_pRenderer;
-  TextureManager m_textureManager;
-	int m_currentFrame;
+  int m_currentFrame;
 	bool m_bRunning;
 };

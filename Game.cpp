@@ -2,7 +2,6 @@
 #include "SDL_image.h"
 #include "TextureManager.h"
 
-
 SDL_Window* m_pWindow = 0;
 SDL_Renderer* m_pRenderer = 0;
 bool m_bRunning = false;
@@ -20,7 +19,10 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 
                 SDL_SetRenderDrawColor(m_pRenderer, 0, 225, 255, 255);
 
-                m_textureManager.load("Assets/animate-alpha.png", "animate", m_pRenderer);
+             if( !TheTextureManager::Instance()->load("Assets/animate-alpha.png","animate", m_pRenderer))
+             {
+               return false;
+             }
 
             }
             else
@@ -52,8 +54,8 @@ void Game::render()
 {
 
     SDL_RenderClear(m_pRenderer);
-    m_textureManager.draw("animate", 0, 0, 128, 82, m_pRenderer);
-    m_textureManager.drawFrame("animate", 100, 100, 128, 82, 0, m_currentFrame, m_pRenderer);
+    TheTextureManager::Instance()->draw("animate", 0, 0, 128, 82, m_pRenderer);
+    TheTextureManager::Instance()->drawFrame("animate", 100, 100, 128, 82, 0, m_currentFrame, m_pRenderer);
     SDL_RenderPresent(m_pRenderer);
 
 }
