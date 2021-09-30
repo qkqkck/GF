@@ -13,16 +13,11 @@ public:
 	bool running();
 	void handleEvents();
 	void clean();
-  void prepare();
-  {
-    TextureManager::Instance()->Load
-  }
 
 private:
 	SDL_Window* m_pwindow;
 	SDL_Renderer* m_pRenderer;
-	bool m_bRunning;
-
-	TextureManager m_textureManager;
+  TextureManager m_textureManager;
 	int m_currentFrame;
+	bool m_bRunning;
 };
