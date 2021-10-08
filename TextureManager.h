@@ -1,7 +1,6 @@
 #ifndef __TEXTUREMANAGER__
 #define __TEXTUREMANAGER__
- 
-#include <string>
+
 #include <SDL.h>
 #include <map>
 
