@@ -1,8 +1,8 @@
 #ifndef __TEXTUREMANAGER__
 #define __TEXTUREMANAGER__
 
-#include <SDL.h>
-#include <map>
+#include "SDL.h"
+#include "map"
 
 class TextureManager
 {

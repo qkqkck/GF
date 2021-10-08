@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "SDL_image.h"
 #include "TextureManager.h"
 
 SDL_Window* m_pWindow = 0;
@@ -17,9 +16,17 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
             if (m_pRenderer != 0)
             {
 
-                SDL_SetRenderDrawColor(m_pRenderer, 0, 225, 255, 255);
+              if( !TheTextureManager::Instance()->load("Assets/background2.png","background", m_pRenderer))
+              {
+                return false;
+              }
 
-             if( !TheTextureManager::Instance()->load("Assets/animate-alpha.png","animate", m_pRenderer))
+           
+             if( !TheTextureManager::Instance()->load("Assets/140.png","Cat", m_pRenderer))
+             {
+               return false;
+             }
+               if( !TheTextureManager::Instance()->load("Assets/Bird.png","bird", m_pRenderer))
              {
                return false;
              }
@@ -47,15 +54,16 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 
 void Game::update()
 {
-    m_currentFrame = ((SDL_GetTicks() / 100) % 6);
+    m_currentFrame = ((SDL_GetTicks() / 200) % 3);
 }
 
 void Game::render()
 {
 
     SDL_RenderClear(m_pRenderer);
-    TheTextureManager::Instance()->draw("animate", 0, 0, 128, 82, m_pRenderer);
-    TheTextureManager::Instance()->drawFrame("animate", 100, 100, 128, 82, 0, m_currentFrame, m_pRenderer);
+    TheTextureManager::Instance()->draw("background", 0, 0, 640, 480,m_pRenderer);
+    TheTextureManager::Instance()->draw("bird", 180, 90, 50, 50, m_pRenderer);
+    TheTextureManager::Instance()->drawFrame("Cat", 320, 320, 140, 140, 0, m_currentFrame, m_pRenderer);
     SDL_RenderPresent(m_pRenderer);
 
 }
