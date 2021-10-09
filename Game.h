@@ -12,12 +12,15 @@ public:
 	bool running();
 	void handleEvents();
 	void clean();
-	
 
 private:
-	SDL_Window* m_pwindow;
+	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
+	SDL_Texture* m_pTexture;
+public:
+	
 	int m_currentFrame;
+	//맵
 	int map[19][19] = {1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 					   1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
 					   1,0,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,
@@ -37,13 +40,22 @@ private:
 					   1,0,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1,
 					   1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,1,0,0,
 					   1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
-
 	int TileSize = 5;
 	int SpaceSize = 5;
+
+	//고양이
 	float CatX = 0;
 	int CatY = 360;
 	int CatSize = 140;
-	float CatSpeed = 0;
+	float CatSpeed = 0.1;
+
+	//새
+	int birdX = 200;
+	int birdY = 100;
+	int birdW = 50;
+	int birdH = 50;
+	int birdRotate = 0;
+
 	bool m_bRunning;
 
 };
