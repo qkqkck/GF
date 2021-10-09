@@ -5,28 +5,8 @@ SDL_Window* m_pWindow = 0;
 SDL_Renderer* m_pRenderer = 0;
 bool m_bRunning = false;
 
-int map[19][19] = { 1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-                    1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-                    1,0,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,
-                    1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,
-                    1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,0,1,
-                    1,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,1,0,1,
-                    1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,0,1,
-                    1,0,0,0,1,0,0,0,0,0,0,0,1,0,1,0,0,0,1,
-                    1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1,0,1,
-                    1,0,0,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,1,
-                    1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,
-                    1,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,
-                    1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,
-                    1,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,1,
-                    1,1,1,1,1,0,1,0,1,0,1,0,1,1,1,1,1,0,1,
-                    1,0,0,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,1,
-                    1,0,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1,
-                    1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,1,0,0,
-                    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
-int TileSize = 5;
-int SpaceSize = 5;
+
 
 bool Game::init(const char* title, int xpos, int ypos, int width, int height, int flags)
 {
@@ -90,16 +70,23 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 
 void Game::update()
 {
-    m_currentFrame = ((SDL_GetTicks() / 200) % 3);
+    m_currentFrame = (SDL_GetTicks() / 200);
+    //고양이 앞으로 이동
+    if (CatX <= 0) 
+        CatSpeed = 0.5;
+    //고양이 화면 끝에서 반대로 이동
+    else if (CatX + CatSpeed >= 640 - CatSize)
+    
+        CatSpeed = -0.5;
+        CatX = CatX + CatSpeed;
 }
-
 void Game::render()
 {
 
     SDL_RenderClear(m_pRenderer);
     TheTextureManager::Instance()->draw("background", 0, 0, 640, 480, m_pRenderer);
     TheTextureManager::Instance()->draw("bird", 180, 90, 50, 50, m_pRenderer);
-    TheTextureManager::Instance()->drawFrame("Cat", 320, 320, 140, 140, 0, m_currentFrame, m_pRenderer);
+    TheTextureManager::Instance()->drawFrame("Cat", CatX, CatY, CatSize, CatSize, 0, m_currentFrame % 3, m_pRenderer, SDL_FLIP_HORIZONTAL);
 
     for (int x = 0; x < 20; x++)
     {
