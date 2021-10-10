@@ -22,7 +22,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 
                 if (!TheTextureManager::Instance()->load("Assets/Cat140.png", "Cat", m_pRenderer))
                 {
-                    return false; // 고양이
+                    return false; //고양이
                 }
 
                 if (!TheTextureManager::Instance()->load("Assets/Bird.png", "bird", m_pRenderer))
@@ -41,7 +41,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
                 }
                 if (!TheTextureManager::Instance()->load("Assets/Apple.png", "Apple", m_pRenderer))
                 {
-                  return false; //생산
+                  return false; //사과
                 }
 
             }
@@ -64,10 +64,12 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
     return true;
 }
 
-void Game::update()
+
+void Game::objectMove()
 {
     //고양이 점프
     m_currentFrame = (SDL_GetTicks() / 200);
+    
     //고양이 앞으로 이동
     if (CatX <= 0)
         CatSpeed = 0.3;
@@ -90,8 +92,13 @@ void Game::update()
         velocityX *= -1;
     if ((TopY + hitH) >= 500 || TopY <= 0)
         velocityY *= -1;
+}
 
-    SDL_RenderPresent(m_pRenderer); 
+void Game::update()
+{
+  objectMove();
+
+  SDL_RenderPresent(m_pRenderer); 
 }
 void Game::render()
 {
@@ -156,4 +163,3 @@ void Game::clean()
     SDL_DestroyRenderer(m_pRenderer);
     SDL_Quit();
 }
-
