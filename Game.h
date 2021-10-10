@@ -56,6 +56,18 @@ public:
 	int birdH = 50;
 	int birdRotate = 0;
 
+  //사과
+  int AppleX = 0;
+  int AppleY = 0;
+  int AppleW = 50;
+  int AppleH = 40;
+	int hitX = 10;
+	int hitY = 10;
+	int hitW = AppleH;
+	int hitH = AppleW;
+	int velocityX = -1;
+	int velocityY = -1;
+
 	bool m_bRunning;
 
 };

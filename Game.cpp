@@ -17,28 +17,33 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
             {
                 if (!TheTextureManager::Instance()->load("Assets/background2.png", "background", m_pRenderer))
                 {
-                    return false;
+                    return false; //배경
                 }
 
-                if (!TheTextureManager::Instance()->load("Assets/140.png", "Cat", m_pRenderer))
+                if (!TheTextureManager::Instance()->load("Assets/Cat140.png", "Cat", m_pRenderer))
                 {
-                    return false;
+                    return false; // 고양이
                 }
 
                 if (!TheTextureManager::Instance()->load("Assets/Bird.png", "bird", m_pRenderer))
                 {
-                    return false;
+                    return false; //새
                 }
 
                 if (!TheTextureManager::Instance()->load("Assets/Tile3.png", "Tile", m_pRenderer))
                 {
-                    return false;
+                    return false; //맵 타일
                 }
 
                 if (!TheTextureManager::Instance()->load("Assets/Space3.png", "Space", m_pRenderer))
                 {
-                    return false;
+                    return false; //맵 공간
                 }
+                if (!TheTextureManager::Instance()->load("Assets/Apple.png", "Apple", m_pRenderer))
+                {
+                  return false; //생산
+                }
+
             }
             else
             {
@@ -61,6 +66,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 
 void Game::update()
 {
+    //고양이 점프
     m_currentFrame = (SDL_GetTicks() / 200);
     //고양이 앞으로 이동
     if (CatX <= 0)
@@ -73,12 +79,25 @@ void Game::update()
 
     //새를 회전
         birdRotate = (SDL_GetTicks() % 1 == 0 ? birdRotate -2 : birdRotate);
-  
+
+    //사과 튕기기
+    AppleX += velocityX;
+    AppleY += velocityY;
+    int TopX = AppleX + hitX;
+    int TopY = AppleY + hitY;
+
+    if ((TopX + hitW) >= 660 || TopX <= 0)
+        velocityX *= -1;
+    if ((TopY + hitH) >= 500 || TopY <= 0)
+        velocityY *= -1;
+
+    SDL_RenderPresent(m_pRenderer); 
 }
 void Game::render()
 {
 
     SDL_RenderClear(m_pRenderer);
+    
     //배경 이미지
     TheTextureManager::Instance()->draw("background", 0, 0, 640, 480, m_pRenderer, SDL_FLIP_NONE);
 
@@ -104,7 +123,9 @@ void Game::render()
         }
     }
 
-    SDL_RenderPresent(m_pRenderer);
+    //사과
+    TheTextureManager::Instance()->draw("Apple", AppleX, AppleY, 40, 50, m_pRenderer, SDL_FLIP_NONE);
+
 
 }
 
@@ -135,3 +156,4 @@ void Game::clean()
     SDL_DestroyRenderer(m_pRenderer);
     SDL_Quit();
 }
+

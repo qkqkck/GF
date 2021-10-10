@@ -30,8 +30,10 @@ void TextureManager::draw(std::string id, int x, int y, int width, int height, S
 
     srcRect.x = 0;
     srcRect.y = 0;
-    srcRect.w = desRect.w = width;
-    srcRect.h = desRect.h = height;
+    srcRect.w = width;
+    srcRect.h = height;
+    desRect.w = width;
+    desRect.h = height;
     desRect.x = x;
     desRect.y = y;
 
