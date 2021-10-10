@@ -52,11 +52,11 @@ public:
 	float CatSpeed = 0.1;
 
 	//새
-	int birdX = 200;
-	int birdY = 100;
-	int birdW = 50;
-	int birdH = 50;
-	int birdRotate = 0;
+	int BirdX = 200;
+	int BirdY = 100;
+	int BirdW = 50;
+	int BirdH = 50;
+	int BirdRotate = 0;
 
   //사과
   int AppleX = 0;

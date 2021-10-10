@@ -25,7 +25,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
                     return false; //고양이
                 }
 
-                if (!TheTextureManager::Instance()->load("Assets/Bird.png", "bird", m_pRenderer))
+                if (!TheTextureManager::Instance()->load("Assets/Bird.png", "Bird", m_pRenderer))
                 {
                     return false; //새
                 }
@@ -80,7 +80,7 @@ void Game::objectMove()
         CatX += CatSpeed;
 
     //새를 회전
-        birdRotate = (SDL_GetTicks() % 1 == 0 ? birdRotate -2 : birdRotate);
+        BirdRotate = (SDL_GetTicks() % 1 == 0 ? BirdRotate -2 : BirdRotate);
 
     //사과 튕기기
     AppleX += velocityX;
@@ -109,7 +109,7 @@ void Game::render()
     TheTextureManager::Instance()->draw("background", 0, 0, 640, 480, m_pRenderer, SDL_FLIP_NONE);
 
     //360도 회전하는 새
-    TheTextureManager::Instance()->drawbird("bird", birdX, birdY, birdW, birdH, birdRotate, m_pRenderer);
+    TheTextureManager::Instance()->drawbird("Bird", BirdX, BirdY, BirdW, BirdH, BirdRotate, m_pRenderer);
     
     //좌우로 이동하는 고양이
     TheTextureManager::Instance()->drawFrame("Cat", CatX, CatY, CatSize, CatSize, 0, m_currentFrame % 3, m_pRenderer, CatSpeed >0 ?  SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
