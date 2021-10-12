@@ -15,35 +15,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
             m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, 0);
             if (m_pRenderer != 0)
             {
-                if (!TheTextureManager::Instance()->load("Assets/background2.png", "background", m_pRenderer))
-                {
-                    return false; //배경
-                }
-
-                if (!TheTextureManager::Instance()->load("Assets/Cat140.png", "Cat", m_pRenderer))
-                {
-                    return false; //고양이
-                }
-
-                if (!TheTextureManager::Instance()->load("Assets/Bird.png", "Bird", m_pRenderer))
-                {
-                    return false; //새
-                }
-
-                if (!TheTextureManager::Instance()->load("Assets/Tile3.png", "Tile", m_pRenderer))
-                {
-                    return false; //맵 타일
-                }
-
-                if (!TheTextureManager::Instance()->load("Assets/Space3.png", "Space", m_pRenderer))
-                {
-                    return false; //맵 공간
-                }
-                if (!TheTextureManager::Instance()->load("Assets/Apple.png", "Apple", m_pRenderer))
-                {
-                  return false; //사과
-                }
-
+                imageInit();
             }
             else
             {
@@ -64,62 +36,109 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
     return true;
 }
 
+bool Game::imageInit() //나중에 따로 정리해서 불러오기
+{
+    if (!TheTextureManager::Instance()->load("Assets/background2.png", "background", m_pRenderer))
+    {
+        return false;
+    }//배경
+    if (!TheTextureManager::Instance()->load("Assets/Cat140.png", "Cat", m_pRenderer))
+    {
+        return false;
+    }//고양이
+    if (!TheTextureManager::Instance()->load("Assets/Bird.png", "Bird", m_pRenderer))
+    {
+        return false;
+    }//새
+    if (!TheTextureManager::Instance()->load("Assets/Apple.png", "Apple", m_pRenderer))
+    {
+        return false;
+    }//사과
+    if (!TheTextureManager::Instance()->load("Assets/Tile3.png", "Tile", m_pRenderer))
+    {
+        return false;
+    }//맵 타일
+    if (!TheTextureManager::Instance()->load("Assets/Space3.png", "Space", m_pRenderer))
+    {
+        return false;
+    }//맵 공간
 
-void Game::objectMove()
+    return true;
+}
+
+void Game::objectMove() //나중에 따로 정리해서 불러오기
 {
     //고양이 점프
     m_currentFrame = (SDL_GetTicks() / 200);
-    
-    //고양이 앞으로 이동
-    
-    if (CatX <= 0)
-        CatSpeed = 0.3;
 
+    //고양이 앞으로 이동
+    if (CatX <= 0)
+    {
+        CatSpeed = 0.3;
+    }
     //고양이 화면 끝에서 반대로 이동
     else if (CatX + CatSpeed >= 640 - CatSize)
 
         CatSpeed = -0.3;
-        CatX += CatSpeed;
+    CatX += CatSpeed;
 
-    //새를 회전
-    BirdRotate = (SDL_GetTicks() % 1 == 0 ? BirdRotate -2 : BirdRotate);
+    //고양이 플립
+    if (CatSpeed > 0)
+        flip = SDL_FLIP_HORIZONTAL;
+    else
+        flip = SDL_FLIP_NONE;
+
+    //새 회전
+    if (SDL_GetTicks() % 2 == 0)
+
+        BirdRotate -= 7;
 
     //사과 튕기기
     AppleX += AppleSpeedX;
     AppleY += AppleSpeedY;
-    
+
     int hitX = 10;
-	  int hitY = 10;
-	  int hitW = AppleH;
-	  int hitH = AppleW;
+    int hitY = 10;
+    int hitW = AppleH;
+    int hitH = AppleW;
     int TopX = AppleX + hitX;
     int TopY = AppleY + hitY;
+
     if ((TopX + hitW) >= 660 || TopX <= 0)
         AppleSpeedX *= -1;
     if ((TopY + hitH) >= 500 || TopY <= 0)
         AppleSpeedY *= -1;
+    
+    //사과 플립
+    if(AppleSpeedY <= -1)
+    flip2 = SDL_FLIP_VERTICAL;
+    else
+    flip2 = SDL_FLIP_NONE;
 }
 
 void Game::update()
 {
-  objectMove();
+    objectMove();
 
-  SDL_RenderPresent(m_pRenderer); 
+    SDL_RenderPresent(m_pRenderer);
 }
+
 void Game::render()
 {
-
     SDL_RenderClear(m_pRenderer);
-    
+
     //배경 이미지
     TheTextureManager::Instance()->draw("background", 0, 0, 640, 480, m_pRenderer, SDL_FLIP_NONE);
 
     //360도 회전하는 새
     TheTextureManager::Instance()->drawbird("Bird", BirdX, BirdY, BirdW, BirdH, BirdRotate, m_pRenderer);
-    
+
     //좌우로 이동하는 고양이
-    TheTextureManager::Instance()->drawFrame("Cat", CatX, CatY, CatSize, CatSize, 0, m_currentFrame % 3, m_pRenderer, CatSpeed >0 ?  SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
-    
+    TheTextureManager::Instance()->drawFrame("Cat", CatX, CatY, CatSize, CatSize, 0, m_currentFrame % 3, m_pRenderer, flip);
+
+    //튕기는 사과
+    TheTextureManager::Instance()->draw("Apple", AppleX, AppleY, 40, 50, m_pRenderer, flip2);
+
     //맵 구현
     for (int x = 0; x < 20; x++)
     {
@@ -135,11 +154,6 @@ void Game::render()
             }
         }
     }
-
-    //사과
-    TheTextureManager::Instance()->draw("Apple", AppleX, AppleY, 40, 50, m_pRenderer, AppleSpeedY <= -1 ?  SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
-
-
 }
 
 bool Game::running()
