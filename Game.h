@@ -49,7 +49,8 @@ public:
 	float CatX = 0;
 	int CatY = 360;
 	int CatSize = 140;
-	float CatSpeed = 0.1;
+  float CatSpeed = 0.1;
+	
 
 	//새
 	int BirdX = 200;
@@ -63,14 +64,8 @@ public:
   int AppleY = 0;
   int AppleW = 50;
   int AppleH = 40;
-	int hitX = 10;
-	int hitY = 10;
-	int hitW = AppleH;
-	int hitH = AppleW;
-	int velocityX = -1;
-	int velocityY = -1;
-  int TopX = AppleX + hitX;
-    int TopY = AppleY + hitY;
+  int AppleSpeedX = -1;
+	int AppleSpeedY = -1;
   
 	bool m_bRunning;
 

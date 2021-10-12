@@ -71,27 +71,33 @@ void Game::objectMove()
     m_currentFrame = (SDL_GetTicks() / 200);
     
     //고양이 앞으로 이동
+    
     if (CatX <= 0)
         CatSpeed = 0.3;
 
     //고양이 화면 끝에서 반대로 이동
     else if (CatX + CatSpeed >= 640 - CatSize)
+
         CatSpeed = -0.3;
         CatX += CatSpeed;
 
     //새를 회전
-        BirdRotate = (SDL_GetTicks() % 1 == 0 ? BirdRotate -2 : BirdRotate);
+    BirdRotate = (SDL_GetTicks() % 1 == 0 ? BirdRotate -2 : BirdRotate);
 
     //사과 튕기기
-    AppleX += velocityX;
-    AppleY += velocityY;
+    AppleX += AppleSpeedX;
+    AppleY += AppleSpeedY;
+    
+    int hitX = 10;
+	  int hitY = 10;
+	  int hitW = AppleH;
+	  int hitH = AppleW;
     int TopX = AppleX + hitX;
     int TopY = AppleY + hitY;
-
     if ((TopX + hitW) >= 660 || TopX <= 0)
-        velocityX *= -1;
+        AppleSpeedX *= -1;
     if ((TopY + hitH) >= 500 || TopY <= 0)
-        velocityY *= -1;
+        AppleSpeedY *= -1;
 }
 
 void Game::update()
@@ -131,7 +137,7 @@ void Game::render()
     }
 
     //사과
-    TheTextureManager::Instance()->draw("Apple", AppleX, AppleY, 40, 50, m_pRenderer, velocityY <= -1 ?  SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
+    TheTextureManager::Instance()->draw("Apple", AppleX, AppleY, 40, 50, m_pRenderer, AppleSpeedY <= -1 ?  SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
 
 
 }
