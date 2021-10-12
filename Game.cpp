@@ -131,7 +131,7 @@ void Game::render()
     }
 
     //사과
-    TheTextureManager::Instance()->draw("Apple", AppleX, AppleY, 40, 50, m_pRenderer, SDL_FLIP_NONE);
+    TheTextureManager::Instance()->draw("Apple", AppleX, AppleY, 40, 50, m_pRenderer, velocityY <= -1 ?  SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
 
 
 }

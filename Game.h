@@ -69,7 +69,9 @@ public:
 	int hitH = AppleW;
 	int velocityX = -1;
 	int velocityY = -1;
-
+  int TopX = AppleX + hitX;
+    int TopY = AppleY + hitY;
+  
 	bool m_bRunning;
 
 };
