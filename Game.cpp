@@ -146,11 +146,11 @@ void Game::render()
         {
             if (map[x][y] == 0)
             {
-                TheTextureManager::Instance()->draw("Space", 640 - (19 - x) * SpaceSize, 480 - (19 - y) * SpaceSize, SpaceSize, SpaceSize, m_pRenderer, SDL_FLIP_NONE);
+                TheTextureManager::Instance()->draw("Space", 640 - (19 - y) * SpaceSize, 480 - (19 - x) * SpaceSize, SpaceSize, SpaceSize, m_pRenderer, SDL_FLIP_NONE);
             }
             else if (map[x][y] == 1)
             {
-                TheTextureManager::Instance()->draw("Tile", 640 - (19 - x) * 5, 480 - (19 - y) * TileSize, TileSize, TileSize, m_pRenderer, SDL_FLIP_NONE);
+                TheTextureManager::Instance()->draw("Tile", 640 - (19 - y) * 5, 480 - (19 - x) * TileSize, TileSize, TileSize, m_pRenderer, SDL_FLIP_NONE);
             }
         }
     }
