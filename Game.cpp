@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "SDL_image.h"
 #include "TextureManager.h"
 
 SDL_Window* m_pWindow = 0;
@@ -15,7 +16,17 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
             m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, 0);
             if (m_pRenderer != 0)
             {
-                imageInit();
+
+                SDL_SetRenderDrawColor(m_pRenderer, 0, 225, 255, 255);
+
+             if( !TheTextureManager::Instance()->load("Assets/animate-alpha.png","animate", m_pRenderer))
+             {
+               return false;
+             }
+
+             m_go.load(100, 100, 128, 82, "animate"); // 부모
+             m_player.load(300, 300, 128, 82, "animate"); // 자식
+
             }
             else
             {
@@ -34,126 +45,25 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 
     m_bRunning = true;
     return true;
-}
 
-bool Game::imageInit() //나중에 따로 정리해서 불러오기
-{
-    if (!TheTextureManager::Instance()->load("Assets/background2.png", "background", m_pRenderer))
-    {
-        return false;
-    }//배경
-    if (!TheTextureManager::Instance()->load("Assets/Cat140.png", "Cat", m_pRenderer))
-    {
-        return false;
-    }//고양이
-    if (!TheTextureManager::Instance()->load("Assets/Bird.png", "Bird", m_pRenderer))
-    {
-        return false;
-    }//새
-    if (!TheTextureManager::Instance()->load("Assets/Apple.png", "Apple", m_pRenderer))
-    {
-        return false;
-    }//사과
-    if (!TheTextureManager::Instance()->load("Assets/Tile3.png", "Tile", m_pRenderer))
-    {
-        return false;
-    }//맵 타일
-    if (!TheTextureManager::Instance()->load("Assets/Space3.png", "Space", m_pRenderer))
-    {
-        return false;
-    }//맵 공간
-
-    return true;
-}
-
-void Game::objectMove() //나중에 따로 정리해서 불러오기
-{
-    //고양이 점프
-    m_currentFrame = (SDL_GetTicks() / 200);
-
-    //고양이 앞으로 이동
-    if (CatX <= 0)
-    {
-        CatSpeed = 0.3;
-    }
-    //고양이 화면 끝에서 반대로 이동
-    else if (CatX + CatSpeed >= 640 - CatSize)
-
-        CatSpeed = -0.3;
-    CatX += CatSpeed;
-
-    //고양이 플립
-    if (CatSpeed > 0)
-        flip = SDL_FLIP_HORIZONTAL;
-    else
-        flip = SDL_FLIP_NONE;
-
-    //새 회전
-    if (SDL_GetTicks() % 2 == 0)
-
-        BirdRotate -= 7;
-
-    //사과 튕기기
-    AppleX += AppleSpeedX;
-    AppleY += AppleSpeedY;
-
-    int hitX = 10;
-    int hitY = 10;
-    int hitW = AppleH;
-    int hitH = AppleW;
-    int TopX = AppleX + hitX;
-    int TopY = AppleY + hitY;
-
-    if ((TopX + hitW) >= 660 || TopX <= 0)
-        AppleSpeedX *= -1;
-    if ((TopY + hitH) >= 500 || TopY <= 0)
-        AppleSpeedY *= -1;
-    
-    //사과 플립
-    if(AppleSpeedY <= -1)
-    flip2 = SDL_FLIP_VERTICAL;
-    else
-    flip2 = SDL_FLIP_NONE;
 }
 
 void Game::update()
 {
-    objectMove();
-
-    SDL_RenderPresent(m_pRenderer);
+    m_go.update();
+    m_player.update();
 }
 
 void Game::render()
 {
+
     SDL_RenderClear(m_pRenderer);
 
-    //배경 이미지
-    TheTextureManager::Instance()->draw("background", 0, 0, 640, 480, m_pRenderer, SDL_FLIP_NONE);
+    m_go.draw(m_pRenderer);
+    m_player.draw(m_pRenderer);
 
-    //360도 회전하는 새
-    TheTextureManager::Instance()->drawbird("Bird", BirdX, BirdY, BirdW, BirdH, BirdRotate, m_pRenderer);
+    SDL_RenderPresent(m_pRenderer);
 
-    //좌우로 이동하는 고양이
-    TheTextureManager::Instance()->drawFrame("Cat", CatX, CatY, CatSize, CatSize, 0, m_currentFrame % 3, m_pRenderer, flip);
-
-    //튕기는 사과
-    TheTextureManager::Instance()->draw("Apple", AppleX, AppleY, 40, 50, m_pRenderer, flip2);
-
-    //맵 구현
-    for (int x = 0; x < 20; x++)
-    {
-        for (int y = 0; y < 20; y++)
-        {
-            if (map[x][y] == 0)
-            {
-                TheTextureManager::Instance()->draw("Space", 640 - (19 - y) * SpaceSize, 480 - (19 - x) * SpaceSize, SpaceSize, SpaceSize, m_pRenderer, SDL_FLIP_NONE);
-            }
-            else if (map[x][y] == 1)
-            {
-                TheTextureManager::Instance()->draw("Tile", 640 - (19 - y) * 5, 480 - (19 - x) * TileSize, TileSize, TileSize, m_pRenderer, SDL_FLIP_NONE);
-            }
-        }
-    }
 }
 
 bool Game::running()
