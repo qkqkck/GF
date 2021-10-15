@@ -18,6 +18,10 @@ class GameObject
   int m_y;
   int m_width;
   int m_height;
+  int m_animateX = 0;
+  int m_parentSpeed = 1;
+  int m_childSpeed = -1;
+  int m_animateSize = 128;
 
   int m_currentFrame;
   int m_currentRow;

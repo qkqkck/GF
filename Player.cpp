@@ -12,5 +12,10 @@ void Player::draw(SDL_Renderer* pRenderer)
 
 void Player::update()
 {
-  m_x -= 1;
+  //m_x -= 1;
+    if(m_x >= 640-128)
+  m_childSpeed= -1;
+  else if(m_x + m_childSpeed <= 0)
+  m_childSpeed = 1;
+  m_x += m_childSpeed;
 }

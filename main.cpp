@@ -1,4 +1,4 @@
-#include"Game.h"
+#include"Game.h" //다형성 실습
 
 Game* g_game = 0;
 
