@@ -4,13 +4,13 @@
 
 class GameObject
 {
-  public:
+public:
 
-  virtual void draw() = 0;
-  virtual void update() = 0;
-  virtual void clean() = 0;
-  virtual ~GameObject(){}
+	virtual void draw() = 0;
+	virtual void update() = 0;
+	virtual void clean() = 0;
+	virtual ~GameObject() {}
 
-  protected:
-  GameObject(const LoaderParams* pParams) {}
+protected:
+	GameObject(const LoaderParams* pParams) {}
 };

@@ -1,10 +1,11 @@
 #include "Game.h"
 #include "SDL_image.h"
 #include "TextureManager.h"
+#include "Player.h"
+#include "Enemy.h"
 
-SDL_Window* m_pWindow = 0;
-SDL_Renderer* m_pRenderer = 0;
-bool m_bRunning = false;
+Game* Game::m_Instance = 0; //함수 자료형, 리턴 자료형 일치해야함
+//같은 이름 헤더 CPP파일이 있고 CPP에서 헤더를 Include해도 무조건 헤더에 있는 함수 변수 사용하는게 아님 그 클래스의 별칭 한정자 :: 사용하자
 
 bool Game::init(const char* title, int xpos, int ypos, int width, int height, int flags)
 {
@@ -19,13 +20,13 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 
                 SDL_SetRenderDrawColor(m_pRenderer, 0, 225, 255, 255);
 
-             if( !TheTextureManager::Instance()->load("Assets/animate-alpha.png","animate", m_pRenderer))
-             {
-               return false;
-             }
+                if (!TheTextureManager::Instance()->load("Assets/animate-alpha.png", "animate", m_pRenderer))
+                {
+                    return false;
+                }
 
-             m_gameObjects.push_back( new Player( new LoaderParams(100, 100, 128, 82, "animate")));
-             m_gameObjects.push_back( new Enemy( new LoaderParams(100, 100, 128, 82, "animate")));
+                m_gameObjects.push_back(new Player(new LoaderParams(100, 100, 128, 82, "animate")));
+                m_gameObjects.push_back(new Enemy(new LoaderParams(200, 200, 128, 82, "animate")));
 
             }
             else
@@ -50,10 +51,10 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 
 void Game::update()
 {
-  for (int i=0; i<m_gameObjects.size(); i++)
-  {
-    m_gameObjects[i]->update();
-  }
+    for (int i = 0; i < m_gameObjects.size(); i++)
+    {
+        m_gameObjects[i]->update();
+    }
 }
 
 void Game::render()
@@ -61,10 +62,10 @@ void Game::render()
 
     SDL_RenderClear(m_pRenderer);
 
-   for (int i = 0; i != m_gameObjects.size(); i++)
-   {
-     m_gameObjects[i]->draw();
-   }
+    for (int i = 0; i != m_gameObjects.size(); i++)
+    {
+        m_gameObjects[i]->draw();
+    }
 
     SDL_RenderPresent(m_pRenderer);
 

@@ -1,19 +1,19 @@
-#include"Game.h" //다형성 실습
+#include"Game.h" //Vector2D 실습
 
-Game* g_game = 0;
+Game* m_game = 0;
 
 int main(int argc, char* argv[])
 {
-    g_game = new Game();
-    g_game->init("Game class", 100, 100, 640, 480, 0);
-    while (g_game->running())
+   
+    TheGame::Instance()->init("Game class", 100, 100, 640, 480, 0);
+    while (TheGame::Instance()->running())
     {
-        g_game->handleEvents();
-        g_game->update();
-        g_game->render();
+        TheGame::Instance()->handleEvents();
+        TheGame::Instance()->update();
+        TheGame::Instance()->render();
         SDL_Delay(10);
     }
-    g_game->clean();
+    TheGame::Instance()->clean();
     return 0;
 
 }
