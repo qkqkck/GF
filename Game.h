@@ -1,12 +1,15 @@
 #include "SDL.h"
 #include "GameObject.h"
 #include "Player.h"
+#include "SDLGameObject.h"
+#include "LoaderParams.h"
+#include "Enemy.h"
 #include "vector"
 
 class Game
 {
 public:
-	Game() {}
+  Game() {}
 	~Game() {}
 
 	bool init(const char* title, int xpos, int ypos, int width, int height, int flags);
@@ -24,3 +27,5 @@ private:
   
   std::vector<GameObject*> m_gameObjects; 
 };
+
+typedef Game TheGame;
