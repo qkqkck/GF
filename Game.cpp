@@ -4,9 +4,6 @@
 #include "Player.h"
 #include "Enemy.h"
 
-Game* Game::m_Instance = 0; //함수 자료형, 리턴 자료형 일치해야함
-//같은 이름 헤더 CPP파일이 있고 CPP에서 헤더를 Include해도 무조건 헤더에 있는 함수 변수 사용하는게 아님 그 클래스의 별칭 한정자 :: 사용하자
-
 bool Game::init(const char* title, int xpos, int ypos, int width, int height, int flags)
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0)

@@ -9,12 +9,6 @@ void Player::draw()
 
 void Player::update()
 {
-  /*if(m_x >= 640-128)
-  m_childSpeed= -1;
-  else if(m_x + m_childSpeed <= 0)
-  m_childSpeed = 1;
-  m_x += m_childSpeed;
-  */
   m_currentFrame = ( (SDL_GetTicks() / 100) % 6);
 }
 

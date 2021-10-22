@@ -8,14 +8,14 @@ class Game
 {
 private:
 	Game() {}
-	static Game* m_Instance;
+	static Game* s_pInstance;
 
 public:
 	static Game* Instance()
 	{
-		if (m_Instance == 0)
-			m_Instance = new Game();
-		return m_Instance;
+		if (s_pInstance == 0)
+			s_pInstance = new Game();
+		return s_pInstance;
 	}
 
 	bool init(const char* title, int xpos, int ypos, int width, int height, int flags);
