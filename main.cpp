@@ -1,8 +1,6 @@
 #include"Game.h" //Vector2D 실습
 #include"iostream"
 
-Game* Game::s_pInstance = 0;
-
 int main(int argc, char* argv[])
 {
   if(TheGame::Instance()->init("Game class", 100, 100, 640, 480, false))
