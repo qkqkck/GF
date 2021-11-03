@@ -4,13 +4,12 @@ Player::Player(const LoaderParams* pParams) : SDLGameObject(pParams) {}
 
 void Player::draw()
 {
-  SDLGameObject::draw();
+	SDLGameObject::draw();
 }
 
 void Player::update()
 {
-  m_currentFrame = ( (SDL_GetTicks() / 100) % 6);
-  SDLGameObject::update();
+	m_currentFrame = ((SDL_GetTicks() / 100) % 6);
+	m_velocity.setX(1);
+	SDLGameObject::update();
 }
-
-void Player::clean(){}
