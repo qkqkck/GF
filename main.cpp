@@ -1,6 +1,7 @@
-#include "Game.h" //물리(가속도) 실습
+#include "Game.h" //키 입력 실습
 #include "iostream"
 #include "SDL.h"
+#include "InputHandler.h"
 
 const int FPS = 60;
 const int DELAY_TIME = 1000.0f / FPS;
@@ -29,6 +30,7 @@ int main(int argc, char* argv[])
         return -1;
     }
     TheGame::Instance()->clean();
+    TheInputHandler::Instance()->clean();
     return 0;
 
 }
