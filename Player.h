@@ -10,5 +10,5 @@ public:
 	virtual void update();
 	void handleInput();
 	virtual void clean(){}
-
+  
 };

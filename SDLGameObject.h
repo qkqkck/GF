@@ -24,5 +24,6 @@ protected:
 	int m_height;
 	int m_currentRow;
 	int m_currentFrame;
+  SDL_RendererFlip flip = SDL_FLIP_NONE;
 	std::string m_textureID;
 };
