@@ -17,7 +17,8 @@ public:
 	void update();
 	void clean() {}
 	bool isKeyDown(SDL_Scancode key);
-	const Uint8* m_keystates;
+  const Uint8* m_keystates;
+	
   enum mouse_buttons
   {
     LEFT = 0,

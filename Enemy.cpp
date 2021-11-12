@@ -19,7 +19,7 @@ void Enemy::handleInput()
 {
   if (TheInputHandler::Instance()->getMouseButtonState(0))
   {
-    m_velocity.setX(1);
+    printf("shoot\n");
   }
   Vector2D* vec = TheInputHandler::Instance()->getMousePosition();
   m_velocity = (*vec - m_position) / 100;
@@ -28,7 +28,7 @@ void Enemy::handleInput()
   {
     flip = SDL_FLIP_HORIZONTAL;
   }
-  else
+  else if (m_velocity.getX() > 0.05)
   {
     flip = SDL_FLIP_NONE;
   }
