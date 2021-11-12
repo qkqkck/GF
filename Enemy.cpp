@@ -17,7 +17,7 @@ void Enemy::update()
 
 void Enemy::handleInput()
 {
-  if (TheInputHandler::Instance()->getMouseButtonState(0))
+  if (TheInputHandler::Instance()->getMouseButtonState(InputHandler::LEFT))
   {
     printf("shoot\n");
   }
