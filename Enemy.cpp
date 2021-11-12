@@ -1,4 +1,6 @@
 #include "Enemy.h"
+#include "InputHandler.h"
+#include "Vector2D.h"
 
 Enemy::Enemy(const LoaderParams* pParams) : SDLGameObject(pParams) {}
 
@@ -19,17 +21,8 @@ void Enemy::handleInput()
 {
   if (TheInputHandler::Instance()->getMouseButtonState(InputHandler::LEFT))
   {
-    printf("shoot\n");
+    printf("shoot \n");
   }
   Vector2D* vec = TheInputHandler::Instance()->getMousePosition();
   m_velocity = (*vec - m_position) / 100;
-  
-  if (m_velocity.getX() < -0.05)
-  {
-    flip = SDL_FLIP_HORIZONTAL;
-  }
-  else if (m_velocity.getX() > 0.05)
-  {
-    flip = SDL_FLIP_NONE;
-  }
 }
