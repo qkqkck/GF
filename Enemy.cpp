@@ -23,4 +23,13 @@ void Enemy::handleInput()
   }
   Vector2D* vec = TheInputHandler::Instance()->getMousePosition();
   m_velocity = (*vec - m_position) / 100;
+  
+  if (m_velocity.getX() < -0.05)
+  {
+    flip = SDL_FLIP_HORIZONTAL;
+  }
+  else
+  {
+    flip = SDL_FLIP_NONE;
+  }
 }
